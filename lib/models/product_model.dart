@@ -1,10 +1,10 @@
 class Product {
-  int id;
+  int? id;
   String nom;
-  String description;
+  String? description;
   double price;
   String imageSrc;
 
-  Product(this.id, this.nom, this.description, this.price, this.imageSrc);
+  Product({this.id, required this.nom, this.description,required this.price,required this.imageSrc});
 
 }
