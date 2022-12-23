@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mini_projet/screens/shared/home_screen.dart';
+import 'package:mini_projet/screens/shared/orders_screen.dart';
 // import 'package:mini_projet/screens/shared/login_screen.dart';
 
 void main() {
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeScreen(),
+      home: OrdersScreen(),
     );
   }
 }

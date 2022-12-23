@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor:const Color.fromRGBO(245, 245, 245, 15),
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Page D'accueil"),
+        title: const Text("Accueil"),
         actions: [
           IconButton(
               onPressed: (){},
