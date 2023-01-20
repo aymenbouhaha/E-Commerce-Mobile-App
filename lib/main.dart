@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
-
+import 'package:testprofile/screens/shared/profile_screen.dart';
+import './screens/constants/constants.dart';
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
+  // This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyApp(),
+      debugShowCheckedModeBanner: false,
+      home: ProfileScreen(),
+      theme:kDarkTheme,
     );
   }
 }
-
-
