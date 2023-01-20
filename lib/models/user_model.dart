@@ -3,9 +3,9 @@ class User {
   String? username;
   String? email;
   String? phoneNumber;
-  String? password;
+  String? role;
   String? imageSrc;
 
-  User({this.id,required this.username,required this.email, this.phoneNumber, this.password,
+  User({this.id,required this.username,required this.email, this.phoneNumber, this.role,
     this.imageSrc});
 }

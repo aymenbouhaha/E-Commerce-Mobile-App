@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mini_projet/blocs/user/user_cubit.dart';
+import 'package:mini_projet/screens/shared/orders_screen.dart';
 import 'package:mini_projet/services/general_services.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -20,6 +23,10 @@ class _LoginScreenState extends State<LoginScreen> {
     }
     _formKey.currentState!.save();
 
+    
+    context.read<UserCubit>().login(email: email!, password: password!);
+
+
   }
 
   @override
@@ -31,106 +38,133 @@ class _LoginScreenState extends State<LoginScreen> {
         body: SingleChildScrollView(
           child: Form(
             key: _formKey,
-            child: Padding(
-              padding: const EdgeInsets.only(
-                left: 28,
-                top: 8,
-                right: 28,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    // height: screenHeight * 0.01,
-                    width: screenWidth,
+            child: BlocConsumer<UserCubit,UserState>(
+              listener: (prevState , curState){
+                if(curState is LoginError){
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Theme.of(context).errorColor,
+                      content: Text(
+                        curState.message,
+                      ),
+                    )
+                  );
+                }
+                
+                if(curState is UserLoggedInState){
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context)=> OrdersScreen()
+                    )
+                  );
+                }
+              },
+              builder: (context, state){
+                if( state is LoginLoadingState){
+                  return const Center(child: CircularProgressIndicator());
+                }
+                return Padding(
+                  padding: const EdgeInsets.only(
+                    left: 28,
+                    top: 8,
+                    right: 28,
                   ),
-                  const CircleAvatar(
-                    foregroundImage: AssetImage("assets/logo.png"),
-                    backgroundColor: Colors.white,
-                    radius: 140,
-                  ),
-                  // SizedBox(
-                  //   height: screenHeight * 0.03,
-                  // ),
-                  SizedBox(
-                    width: screenWidth,
-                    child: const Text(
-                      "Se Connecter",
-                      style:
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        // height: screenHeight * 0.01,
+                        width: screenWidth,
+                      ),
+                      const CircleAvatar(
+                        foregroundImage: AssetImage("assets/logo.png"),
+                        backgroundColor: Colors.white,
+                        radius: 140,
+                      ),
+                      // SizedBox(
+                      //   height: screenHeight * 0.03,
+                      // ),
+                      SizedBox(
+                        width: screenWidth,
+                        child: const Text(
+                          "Se Connecter",
+                          style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
-                    ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.04,
+                      ),
+                      TextFormField(
+                        onSaved: (value){
+                          email=value;
+                        },
+                        textInputAction: TextInputAction.next,
+                        style: const TextStyle(fontSize: 21),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Entrer votre mail";
+                          }
+                          if (!GeneralServices.isValidEmail(value)) {
+                            return "Le mail n'est pas valide";
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                            hintText: "Email",
+                            contentPadding: const EdgeInsets.only(left: 20, right: 20),
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(width: 1, color: Colors.black),
+                              borderRadius: BorderRadius.circular(20),
+                            )),
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.03,
+                      ),
+                      TextFormField(
+                        onSaved: (value){
+                          password=value;
+                        },
+                        obscureText: true,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Entrer votre mot de passe";
+                          }
+                          if (value.length < 8) {
+                            return "Le mot de passe doit contenir au min 8 caractères";
+                          }
+                          return null;
+                        },
+                        style: const TextStyle(fontSize: 21),
+                        decoration: InputDecoration(
+                            hintText: "Mot De Passe",
+                            contentPadding: const EdgeInsets.only(left: 20, right: 20),
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(width: 1, color: Colors.black),
+                              borderRadius: BorderRadius.circular(20),
+                            )),
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.04,
+                      ),
+                      Container(
+                        width:  screenWidth*0.4,
+                        decoration: const BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
+                        child: TextButton(
+                          onPressed: (){
+                            _submit(context);
+                          },
+                          child: const Text('Se Connecter' ,style: TextStyle(color: Colors.white),),
+                        ),
+                      )
+                    ],
                   ),
-                  SizedBox(
-                    height: screenHeight * 0.04,
-                  ),
-                  TextFormField(
-                    onSaved: (value){
-                      email=value;
-                    },
-                    textInputAction: TextInputAction.next,
-                    style: const TextStyle(fontSize: 21),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Entrer votre mail";
-                      }
-                      if (!GeneralServices.isValidEmail(value)) {
-                        return "Le mail n'est pas valide";
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                        hintText: "Email",
-                        contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                        border: OutlineInputBorder(
-                          borderSide: const BorderSide(width: 1, color: Colors.black),
-                          borderRadius: BorderRadius.circular(20),
-                        )),
-                  ),
-                  SizedBox(
-                    height: screenHeight * 0.03,
-                  ),
-                  TextFormField(
-                    onSaved: (value){
-                      password=value;
-                    },
-                    obscureText: true,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Entrer votre mot de passe";
-                      }
-                      if (value.length < 8) {
-                        return "Le mot de passe doit contenir au min 8 caractères";
-                      }
-                      return null;
-                    },
-                    style: const TextStyle(fontSize: 21),
-                    decoration: InputDecoration(
-                        hintText: "Mot De Passe",
-                        contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                        border: OutlineInputBorder(
-                          borderSide: const BorderSide(width: 1, color: Colors.black),
-                          borderRadius: BorderRadius.circular(20),
-                        )),
-                  ),
-                  SizedBox(
-                    height: screenHeight * 0.04,
-                  ),
-                  Container(
-                    width:  screenWidth*0.4,
-                    decoration: const BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                    ),
-                    child: TextButton(
-                      onPressed: (){
-                        _submit(context);
-                      },
-                      child: const Text('Se Connecter' ,style: TextStyle(color: Colors.white),),
-                    ),
-                  )
-                ],
-              ),
-            ),
+                );
+              },
+            )
           ),
         ));
   }

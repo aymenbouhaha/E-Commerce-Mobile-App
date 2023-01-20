@@ -1,10 +1,11 @@
 
-import 'package:mini_projet/models/client_model.dart';
+
 import 'package:mini_projet/models/product_model.dart';
+import 'package:mini_projet/models/user_model.dart';
 
 class Order {
   OrderState state;
-  Client client;
+  User client;
   Product product;
 
   Order({ required this.state,required this.client,required this.product});

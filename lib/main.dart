@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mini_projet/screens/shared/home_screen.dart';
-import 'package:mini_projet/screens/shared/orders_screen.dart';
-// import 'package:mini_projet/screens/shared/login_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mini_projet/blocs/user/user_cubit.dart';
+import 'package:mini_projet/screens/shared/login_screen.dart';
+
+
 
 void main() {
   runApp(const MyApp());
@@ -13,13 +15,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return BlocProvider<UserCubit>(
+      create: (context) => UserCubit(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'E-Commerce App',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: LoginScreen(),
       ),
-      home: OrdersScreen(),
     );
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mini_projet/models/order_model.dart';
-
-import '../../models/client_model.dart';
+import 'package:mini_projet/models/user_model.dart';
 import '../../models/product_model.dart';
 
 
@@ -10,29 +9,29 @@ class OrdersScreen extends StatefulWidget {
   OrdersScreen({Key? key}) : super(key: key);
 
   List<Order> orders=[
-    new Order(
-        client: Client(username: 'Aymen', email: "aymenfzfzfze"),
-        product:  new Product(nom: "Nike Air 22", price: 220 , imageSrc:"https://images.pexels.com/photos/4263994/pexels-photo-4263994.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" ),
+    Order(
+        client: User(username: 'Aymen', email: "aymenfzfzfze"),
+        product:  Product(nom: "Nike Air 22", price: 220 , imageSrc:"https://images.pexels.com/photos/4263994/pexels-photo-4263994.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" ),
         state: OrderState.refused
     ),
-    new Order(
-        client: Client(username: 'Ahmed', email: "aymenfzfzfze"),
-        product: new Product(nom: "Vans 2001", price: 120, imageSrc: "https://images.pexels.com/photos/8472857/pexels-photo-8472857.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
+    Order(
+        client: User(username: 'Ahmed', email: "aymenfzfzfze"),
+        product: Product(nom: "Vans 2001", price: 120, imageSrc: "https://images.pexels.com/photos/8472857/pexels-photo-8472857.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
         state: OrderState.accepted
     ),
-    new Order(
-        client: Client(username: 'Anas', email: "aymenfzfzfze"),
-        product: new Product(nom: "Adidas F20", price: 170, imageSrc: "https://images.pexels.com/photos/684152/pexels-photo-684152.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
+    Order(
+        client: User(username: 'Anas', email: "aymenfzfzfze"),
+        product: Product(nom: "Adidas F20", price: 170, imageSrc: "https://images.pexels.com/photos/684152/pexels-photo-684152.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
         state: OrderState.enCours
     ),
-    new Order(
-        client: Client(username: 'Oussema', email: "aymenfzfzfze"),
-        product: new Product(nom: "Nike M32", price: 330, imageSrc: "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
+    Order(
+        client: User(username: 'Oussema', email: "aymenfzfzfze"),
+        product: Product(nom: "Nike M32", price: 330, imageSrc: "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
         state: OrderState.accepted
     ),
-    new Order(
-        client: Client(username: 'Khaoula', email: "aymenfzfzfze"),
-        product: new Product(nom: "Vans Dragon 230", price: 190, imageSrc: "https://images.pexels.com/photos/1598508/pexels-photo-1598508.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
+    Order(
+        client: User(username: 'Khaoula', email: "aymenfzfzfze"),
+        product: Product(nom: "Vans Dragon 230", price: 190, imageSrc: "https://images.pexels.com/photos/1598508/pexels-photo-1598508.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"),
         state: OrderState.enCours
     ),
 
