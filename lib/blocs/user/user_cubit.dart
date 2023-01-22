@@ -14,7 +14,7 @@ class UserCubit extends Cubit<UserState> {
 
 
   login({required String email,required String password}) async {
-    Uri uri = Uri.parse("https://7856-196-187-158-182.eu.ngrok.io/user/login");
+    Uri uri = Uri.parse("https://c027-197-29-17-255.eu.ngrok.io/user/login");
     emit(LoginLoadingState());
     var response = await http.post(
       uri,
@@ -25,14 +25,9 @@ class UserCubit extends Cubit<UserState> {
     if (response.statusCode>=200 && response.statusCode<=299){
       final respJson = json.decode(response.body);
       Map<String, dynamic> userInfo = JwtDecoder.decode(respJson["token"]);
-      int id= userInfo["id"];
-      String username = userInfo["username"];
-      String email= userInfo["email"];
-      String role = userInfo["role"];
-      String phoneNumber = userInfo["phoneNumber"];
-      String image = userInfo["image"];
-      User user = User(id: id,username: username , email: email , role: role, phoneNumber: phoneNumber , imageSrc: image);
-      emit(UserLoggedInState(user: user, token: respJson["token"]));
+      User user=User.fromJson(userInfo);
+      bool isAdmin=user.role == "admin" ? true : false;
+      emit(UserLoggedInState(user: user, token: respJson["token"],isAdmin: isAdmin));
 
     }else {
       final respJson = json.decode(response.body);

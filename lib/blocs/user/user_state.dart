@@ -22,8 +22,9 @@ class LoginLoadingState extends UserState{
 class UserLoggedInState extends UserState{
   User user;
   String token;
+  bool isAdmin;
 
-  UserLoggedInState({required this.user, required this.token});
+  UserLoggedInState({required this.user, required this.token, required this.isAdmin});
 
   @override
   List<Object?> get props => [user, token];

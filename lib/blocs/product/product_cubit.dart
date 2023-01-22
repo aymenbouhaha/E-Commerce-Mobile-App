@@ -4,41 +4,32 @@ import 'package:mini_projet/models/product_model.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import '../../constant.dart';
+
 part 'product_state.dart';
 
 
 class ProductCubit extends Cubit<ProductState>{
-  final String token;
 
-  ProductCubit(this.token) : super(ProductInitState());
+  ProductCubit() : super(ProductInitState());
 
 
-  getProduct()async{
+  getProduct(String token)async{
     emit(ProductLoadingState());
-    Uri uri=Uri.parse("lalal");
+    Uri uri=Uri.parse("https://c027-197-29-17-255.eu.ngrok.io/product");
     var response = await http.get(uri , headers: {
       "Authorization" : 'Bearer '+ token
     });
     if (response.statusCode>=200 && response.statusCode<=299){
-      List<dynamic> productRespo= json.decode(response.body);
-      List<Product> productList = [];
-      productRespo.forEach((element) {
-        productList.add(Product(
-          id: element["id"],
-          nom: element["name"],
-          price: element["price"],
-          imageSrc: element["image"],
-          description: element["description"]
-        ));
-      });
-      emit(ProductLoadedState(products: productList));
+      List<Product> productList = productListFromJson(response.body);
+      emit(ProductLoadedState(products:  productList ));
     }else {
       _handlingError(response.body);
     }
   }
 
-  addProduct(Product product)async{
-    Uri uri=Uri.parse("lalal");
+  addProduct(Product product , String token)async{
+    Uri uri=Uri.parse("${url}/product/add");
     var response = await http.post(
       uri,
         headers: {
@@ -48,13 +39,14 @@ class ProductCubit extends Cubit<ProductState>{
         "name": product.nom,
         "price": product.price,
         "description" : product.description,
-        "image" : product.imageSrc
+        "image" : product.image
       }
     );
     if(response.statusCode>=200 && response.statusCode<=299){
+      Product addedProduct = productFromJson(response.body);
       emit(
           ProductLoadedState(
-              products: List.from((this.state as ProductLoadedState).products)..add(product)
+              products: List.from((this.state as ProductLoadedState).products)..add(addedProduct)
           )
       );
     }else{
@@ -64,8 +56,8 @@ class ProductCubit extends Cubit<ProductState>{
 
   }
 
-  removeProduct(Product product)async{
-    Uri uri=Uri.parse("lalal");
+  removeProduct(Product product , String token)async{
+    Uri uri=Uri.parse("${url}/product/${product.id}");
     var response = await http.delete(
       uri,
       headers: {

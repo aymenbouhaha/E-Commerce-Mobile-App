@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mini_projet/blocs/favorite_list/favorite_list_cubit.dart';
+import 'package:mini_projet/blocs/order/order_cubit.dart';
 import 'package:mini_projet/blocs/user/user_cubit.dart';
-import 'package:mini_projet/screens/shared/orders_screen.dart';
+import 'package:mini_projet/screens/shared/home_screen.dart';
 import 'package:mini_projet/services/general_services.dart';
+
+import '../../blocs/product/product_cubit.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -50,11 +54,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     )
                   );
                 }
-                
                 if(curState is UserLoggedInState){
+                  BlocProvider.of<ProductCubit>(context).getProduct(curState.token);
+                  BlocProvider.of<OrderCubit>(context).getOrderList(curState.token);
+                  BlocProvider.of<FavoriteListCubit>(context).getFavoriteList(curState.token);
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                      builder: (context)=> OrdersScreen()
+                      builder: (context)=> HomeScreen()
                     )
                   );
                 }
