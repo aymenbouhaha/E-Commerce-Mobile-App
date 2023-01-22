@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_projet/blocs/user/user_cubit.dart';
 import 'package:mini_projet/screens/client/favourite_screen.dart';
 import 'package:mini_projet/screens/client/product_description_screen.dart';
+import 'package:mini_projet/screens/constants/constants.dart';
 import 'package:mini_projet/screens/shared/orders_screen.dart';
+import 'package:mini_projet/screens/shared/profile_screen.dart';
 
 
 import '../../blocs/product/product_cubit.dart';
@@ -25,7 +27,6 @@ class _HomeScreenState extends State<HomeScreen> {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor:const Color.fromRGBO(245, 245, 245, 15),
       appBar: AppBar(
         centerTitle: true,
         title: const Text("Accueil"),
@@ -47,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
-          color: Colors.blue,
+          color: kAccentColor,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30),
             topRight: Radius.circular(30)
@@ -62,7 +63,13 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 IconButton(
                   enableFeedback: false,
-                    onPressed: (){},
+                    onPressed: (){
+                      Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context)=> ProfileScreen()
+                          )
+                      );
+                    },
                     icon: const Icon(Icons.account_circle , size: 40 ,)
                 ),
                 IconButton(

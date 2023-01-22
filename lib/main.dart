@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_projet/blocs/user/user_cubit.dart';
+import 'package:mini_projet/screens/constants/constants.dart';
 import 'package:mini_projet/screens/shared/login_screen.dart';
 
 import 'blocs/favorite_list/favorite_list_cubit.dart';
@@ -37,9 +38,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'E-Commerce App',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        theme: kDarkTheme,
         home: LoginScreen(),
       ),
     );

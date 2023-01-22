@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_projet/blocs/favorite_list/favorite_list_cubit.dart';
 import 'package:mini_projet/blocs/order/order_cubit.dart';
 import 'package:mini_projet/models/product_model.dart';
+import 'package:mini_projet/screens/constants/constants.dart';
 
 import '../../blocs/product/product_cubit.dart';
 import '../../blocs/user/user_cubit.dart';
@@ -32,7 +33,6 @@ class _ProductDescriptionScreenState extends State<ProductDescriptionScreen> {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-        backgroundColor: Color.fromRGBO(245, 245, 245, 15),
         appBar: AppBar(
           centerTitle: true,
           title: Text("Produit"),
@@ -105,7 +105,7 @@ class _ProductDescriptionScreenState extends State<ProductDescriptionScreen> {
                               borderRadius: BorderRadius.circular(15),
                               color: Colors.white
                             ),
-                            child: Icon(Icons.favorite_border , size: 30,),
+                            child: Icon(Icons.favorite_border , size: 30,color: kAccentColor,),
                             height: 60,
                             width: 60,
                           ),
@@ -120,7 +120,7 @@ class _ProductDescriptionScreenState extends State<ProductDescriptionScreen> {
                                 borderRadius: BorderRadius.circular(15),
                                 color: Colors.white
                             ),
-                            child: Icon(Icons.add , size: 30,),
+                            child: Icon(Icons.add , size: 30,color: kAccentColor,),
                             height: 60,
                             width: 60,
                           ),

@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:mini_projet/constant.dart';
 import 'package:mini_projet/models/user_model.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -14,7 +15,7 @@ class UserCubit extends Cubit<UserState> {
 
 
   login({required String email,required String password}) async {
-    Uri uri = Uri.parse("https://c027-197-29-17-255.eu.ngrok.io/user/login");
+    Uri uri = Uri.parse("${url}/user/login");
     emit(LoginLoadingState());
     var response = await http.post(
       uri,

@@ -16,7 +16,7 @@ class ProductCubit extends Cubit<ProductState>{
 
   getProduct(String token)async{
     emit(ProductLoadingState());
-    Uri uri=Uri.parse("https://c027-197-29-17-255.eu.ngrok.io/product");
+    Uri uri=Uri.parse("${url}/product");
     var response = await http.get(uri , headers: {
       "Authorization" : 'Bearer '+ token
     });

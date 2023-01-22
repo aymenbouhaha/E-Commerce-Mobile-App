@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_projet/blocs/favorite_list/favorite_list_cubit.dart';
 import 'package:mini_projet/blocs/order/order_cubit.dart';
 import 'package:mini_projet/blocs/user/user_cubit.dart';
+import 'package:mini_projet/screens/constants/constants.dart';
 import 'package:mini_projet/screens/shared/home_screen.dart';
 import 'package:mini_projet/services/general_services.dart';
 
@@ -84,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const CircleAvatar(
                         foregroundImage: AssetImage("assets/logo.png"),
-                        backgroundColor: Colors.white,
+                        backgroundColor: kDarkPrimaryColor,
                         radius: 140,
                       ),
                       // SizedBox(
@@ -106,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           email=value;
                         },
                         textInputAction: TextInputAction.next,
-                        style: const TextStyle(fontSize: 21),
+                        style: kCaptionTextStyle,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "Entrer votre mail";
@@ -141,13 +142,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                           return null;
                         },
-                        style: const TextStyle(fontSize: 21),
+                        style: kCaptionTextStyle,
                         decoration: InputDecoration(
                             hintText: "Mot De Passe",
                             contentPadding: const EdgeInsets.only(left: 20, right: 20),
                             border: OutlineInputBorder(
-                              borderSide: const BorderSide(width: 1, color: Colors.black),
-                              borderRadius: BorderRadius.circular(20),
+                              borderSide: const BorderSide(width: 0.1, color: kAccentColor),
+                              borderRadius: BorderRadius.circular(10),
                             )),
                       ),
                       SizedBox(
@@ -156,14 +157,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       Container(
                         width:  screenWidth*0.4,
                         decoration: const BoxDecoration(
-                          color: Colors.blue,
+                          color: kAccentColor,
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                         ),
                         child: TextButton(
                           onPressed: (){
                             _submit(context);
                           },
-                          child: const Text('Se Connecter' ,style: TextStyle(color: Colors.white),),
+                          child:  Text('Se Connecter' ,style: kButtonTextStyle,),
                         ),
                       )
                     ],

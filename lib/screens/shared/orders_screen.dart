@@ -5,6 +5,7 @@ import 'package:mini_projet/blocs/user/user_cubit.dart';
 import 'package:mini_projet/models/order_model.dart';
 import 'package:mini_projet/models/user_model.dart';
 import '../../models/product_model.dart';
+import '../constants/constants.dart';
 
 
 class OrdersScreen extends StatefulWidget {
@@ -59,16 +60,8 @@ class _OrdersScreenState extends State<OrdersScreen> {
     var screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Commandes"),
+        title: Text("Commandes", style: kTitleAppBarTextStyle,),
         centerTitle: true,
-      ),
-      floatingActionButton: ElevatedButton(
-        onPressed: (){
-            setState(() {
-              isAdmin=!isAdmin;
-            });
-        },
-        child: Text("Click Me"),
       ),
       body: Padding(
         padding: EdgeInsets.only(left: 10, right: 10, top: 10),
@@ -85,7 +78,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                       height: 120,
                       margin: EdgeInsets.symmetric(vertical: 6) ,
                       decoration: BoxDecoration(
-                        color: Color.fromRGBO(214, 214, 214, 10),
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Row(
@@ -107,10 +100,10 @@ class _OrdersScreenState extends State<OrdersScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Text("Nom: ${state.order[index].product.nom}"),
-                                Text("Prix: ${state.order[index].product.price} TND"),
-                                isAdmin? Text("Client: ${state.order[index].client.username}")
-                                    : Text("Etat: ${state.order[index].state}")
+                                Text("Nom: ${state.order[index].product.nom}", style: TextStyle(color: Colors.black),),
+                                Text("Prix: ${state.order[index].product.price} TND",style: TextStyle(color: Colors.black),),
+                                isAdmin? Text("Client: ${state.order[index].client.username}",style: TextStyle(color: Colors.black),)
+                                    : Text("Etat: ${state.order[index].state}", style: TextStyle(color: Colors.black),)
                               ],
                             ),
                           ),
