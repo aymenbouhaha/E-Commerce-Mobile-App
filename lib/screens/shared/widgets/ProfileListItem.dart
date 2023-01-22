@@ -30,9 +30,17 @@ class ProfileListItem extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-          Icon(
-            this.icon,
-            size: kSpacingUnit.w * 2.5,
+          Container(
+            width: 40.sp,
+            height: 40.sp,
+            decoration:BoxDecoration(
+              borderRadius: BorderRadius.circular(100),
+              color: Color(0xFF00897B)
+            ),
+            child: Icon(
+              this.icon,
+              size: kSpacingUnit.w * 2.5,
+            ),
           ),
           SizedBox(width: kSpacingUnit.w * 1.5),
           Text(
